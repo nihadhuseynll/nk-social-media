@@ -25,26 +25,27 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    User user;
-
     @Lob
     @Column(nullable = false)
     String description;
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    LocalDateTime createdDate;
+
+    @UpdateTimestamp
+    LocalDateTime updatedDate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Photo> photos = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Comment> comments = new ArrayList<>();
+    List<Reaction> reactions = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Reaction> postLikes = new ArrayList<>();
-
-    @CreationTimestamp
-    LocalDateTime createdDate;
-
-    @UpdateTimestamp
-    LocalDateTime updatedDate;
+    List<Comment> comments = new ArrayList<>();
 }

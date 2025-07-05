@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,12 +25,15 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
+    @Lob
     @Column(nullable = false)
     String description;
 
-    @Lob
     @CreationTimestamp
     LocalDateTime createdDate;
+
+    @UpdateTimestamp
+    LocalDateTime updatedDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -45,4 +49,7 @@ public class Comment {
 
     @OneToMany(mappedBy = "parentComment")
     List<Comment> replyComments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL,orphanRemoval = true)
+    List<Reaction> reactions = new ArrayList<>();
 }
