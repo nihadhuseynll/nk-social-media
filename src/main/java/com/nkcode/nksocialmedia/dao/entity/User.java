@@ -35,6 +35,9 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     String email;
 
+    @Column(name = "user_name", nullable = false, unique = true)
+    String userName;
+
     @JsonIgnore
     @Column(name = "password", nullable = false)
     String password;

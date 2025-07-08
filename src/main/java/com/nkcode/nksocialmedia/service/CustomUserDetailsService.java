@@ -1,7 +1,7 @@
 package com.nkcode.nksocialmedia.service;
 
-import com.nkcode.nksocialmedia.dao.entity.UserReg;
-import com.nkcode.nksocialmedia.dao.repository.UserRegRepository;
+import com.nkcode.nksocialmedia.dao.entity.User;
+import com.nkcode.nksocialmedia.dao.repository.UserRepository;
 import com.nkcode.nksocialmedia.exception.custom.UserNotFoundException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +17,12 @@ import java.util.Optional;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
-    UserRegRepository userRegRepository;
+    UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        Optional<UserReg> userReg = userRegRepository.findByUsername(username);
-        userReg.orElseThrow(() -> new UserNotFoundException("username not found int the database"));
-        return new CustomUserDetails(userReg.get());
+        Optional<User> user = userRepository.findByUserName(username);
+        user.orElseThrow(() -> new UserNotFoundException("username not found int the database"));
+        return new CustomUserDetails(user.get());
     }
 }

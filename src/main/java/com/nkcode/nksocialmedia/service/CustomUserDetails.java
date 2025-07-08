@@ -1,6 +1,6 @@
 package com.nkcode.nksocialmedia.service;
 
-import com.nkcode.nksocialmedia.dao.entity.UserReg;
+import com.nkcode.nksocialmedia.dao.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +11,7 @@ import java.util.Collections;
 
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
-    private final UserReg userReg;
+    private final User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -20,12 +20,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return userReg.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return userReg.getUsername();
+        return user.getUserName();
     }
 
     @Override
