@@ -2,6 +2,9 @@ package com.nkcode.nksocialmedia.service;
 
 import com.nkcode.nksocialmedia.dao.entity.User;
 import com.nkcode.nksocialmedia.dao.repository.UserRepository;
+import com.nkcode.nksocialmedia.dto.request.LoginRequestDto;
+import com.nkcode.nksocialmedia.dto.request.RegistrationRequestDto;
+import com.nkcode.nksocialmedia.mapper.UserMapper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,22 +19,23 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserService {
 
+    JwtService jwtService;
+    UserMapper userMapper;
     UserRepository userRepository;
     BCryptPasswordEncoder bCryptPasswordEncoder;
     AuthenticationManager authenticationManager;
-    JwtService jwtService;
 
-    public User register(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+    public User register(RegistrationRequestDto registrationRequestDto) {
+        registrationRequestDto.setPassword(bCryptPasswordEncoder.encode(registrationRequestDto.getPassword()));
+        return userRepository.save(userMapper.toEntity(registrationRequestDto));
     }
 
-    public String verify(User user) {
+    public String verify(LoginRequestDto loginRequestDto) {
         Authentication authenticate = authenticationManager.authenticate
-                (new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
+                (new UsernamePasswordAuthenticationToken(loginRequestDto.getUserName(), loginRequestDto.getPassword()));
 
         if (authenticate.isAuthenticated()) {
-            return jwtService.generateToken(user);
+            return jwtService.generateToken(loginRequestDto);
         }
         return "failure";
     }

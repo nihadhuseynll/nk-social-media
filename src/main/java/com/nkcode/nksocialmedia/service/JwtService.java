@@ -1,6 +1,6 @@
 package com.nkcode.nksocialmedia.service;
 
-import com.nkcode.nksocialmedia.dao.entity.User;
+import com.nkcode.nksocialmedia.dto.request.LoginRequestDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -19,7 +19,7 @@ public class JwtService {
 
     private String secretKey = null;
 
-    public String generateToken(User user) {
+    public String generateToken(LoginRequestDto user) {
         Map<String, Object> claims = new HashMap<>();
 
         return Jwts

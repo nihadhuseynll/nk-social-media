@@ -1,13 +1,13 @@
 package com.nkcode.nksocialmedia.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nkcode.nksocialmedia.dto.enums.Sex;
+import com.nkcode.nksocialmedia.dto.enums.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -43,11 +43,12 @@ public class User {
     String password;
 
     @Column(name = "date_of_birth", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sex", nullable = false)
-    Sex sex;
+    @Column(name = "gender", nullable = false)
+    Gender gender;
 
     @Column(name = "phone", nullable = false, unique = true)
     String phone;
