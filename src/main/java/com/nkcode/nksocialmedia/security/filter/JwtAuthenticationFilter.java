@@ -1,6 +1,6 @@
-package com.nkcode.nksocialmedia.config;
+package com.nkcode.nksocialmedia.security.filter;
 
-import com.nkcode.nksocialmedia.service.JwtService;
+import com.nkcode.nksocialmedia.security.Jwt.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

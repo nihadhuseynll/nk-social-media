@@ -1,4 +1,4 @@
-package com.nkcode.nksocialmedia.exception;
+package com.nkcode.nksocialmedia.exception.payload;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ErrorResponse {
+
     LocalDateTime timestamp;
     String message;
     String details;

@@ -1,10 +1,12 @@
-package com.nkcode.nksocialmedia.service;
+package com.nkcode.nksocialmedia.security.Jwt;
 
 import com.nkcode.nksocialmedia.dto.request.LoginRequestDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+@Getter
 @Service
 public class JwtService {
 
-    private String secretKey = null;
+    @Value("${spring.security.secretKey}")
+    private String secretKey;
 
     public String generateToken(LoginRequestDto user) {
         Map<String, Object> claims = new HashMap<>();
@@ -38,11 +42,6 @@ public class JwtService {
     private SecretKey generateKey() {
         byte[] decode = Decoders.BASE64.decode(getSecretKey());
         return Keys.hmacShaKeyFor(decode);
-    }
-
-    public String getSecretKey() {
-        return secretKey = "b486a866017febebba8371d6df2de2c2835710ae20e345059" +
-                "5afa63b4bfa94b3cb0d313e028c326d7078dc4bb1d69c770c1aabd8";
     }
 
     public String extractUsername(String token) {

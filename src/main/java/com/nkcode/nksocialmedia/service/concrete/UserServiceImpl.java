@@ -1,10 +1,12 @@
-package com.nkcode.nksocialmedia.service;
+package com.nkcode.nksocialmedia.service.concrete;
 
 import com.nkcode.nksocialmedia.dao.entity.User;
 import com.nkcode.nksocialmedia.dao.repository.UserRepository;
 import com.nkcode.nksocialmedia.dto.request.LoginRequestDto;
 import com.nkcode.nksocialmedia.dto.request.RegistrationRequestDto;
 import com.nkcode.nksocialmedia.mapper.UserMapper;
+import com.nkcode.nksocialmedia.security.Jwt.JwtService;
+import com.nkcode.nksocialmedia.service.abstraction.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     JwtService jwtService;
     UserMapper userMapper;
@@ -25,12 +27,14 @@ public class UserService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
     AuthenticationManager authenticationManager;
 
+    @Override
     public User register(RegistrationRequestDto registrationRequestDto) {
         registrationRequestDto.setPassword(bCryptPasswordEncoder.encode(registrationRequestDto.getPassword()));
         return userRepository.save(userMapper.toEntity(registrationRequestDto));
     }
 
-    public String verify(LoginRequestDto loginRequestDto) {
+    @Override
+    public String login(LoginRequestDto loginRequestDto) {
         Authentication authenticate = authenticationManager.authenticate
                 (new UsernamePasswordAuthenticationToken(loginRequestDto.getUserName(), loginRequestDto.getPassword()));
 
@@ -39,4 +43,5 @@ public class UserService {
         }
         return "failure";
     }
+
 }

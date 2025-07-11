@@ -1,6 +1,5 @@
 package com.nkcode.nksocialmedia.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nkcode.nksocialmedia.dto.enums.Gender;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -10,6 +9,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+//@FieldDefaults(level = AccessLevel.PRIVATE)
 public class RegistrationRequestDto {
 
     @NotBlank(message = "First name cannot be blank")
@@ -29,11 +29,6 @@ public class RegistrationRequestDto {
     @NotBlank(message = "Password cannot be blank")
     @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
-
-    @NotNull(message = "Date of birth is required")
-    @Past(message = "Date of birth must be in the past")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private String dateOfBirth;
 
     @NotNull(message = "Gender is required")
     private Gender gender;

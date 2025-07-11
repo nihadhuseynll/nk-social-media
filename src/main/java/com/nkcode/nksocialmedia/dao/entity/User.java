@@ -8,6 +8,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,50 +20,42 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users", indexes = {@Index(name = "idx_user_email", columnList = "email")})
-@FieldDefaults(level = AccessLevel.PRIVATE)
+//@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID id;
+    private UUID id;
 
     @Column(name = "first_name", nullable = false)
-    String firstName;
+    private String firstName;
 
     @Column(name = "last_name", nullable = false)
-    String lastName;
+    private String lastName;
 
     @Column(name = "email", nullable = false, unique = true)
-    String email;
+    private String email;
 
     @Column(name = "user_name", nullable = false, unique = true)
-    String userName;
+    private String userName;
 
     @JsonIgnore
     @Column(name = "password", nullable = false)
-    String password;
-
-    @Column(name = "date_of_birth", nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    LocalDate dateOfBirth;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
-    Gender gender;
+    private Gender gender;
 
     @Column(name = "phone", nullable = false, unique = true)
-    String phone;
-
-    @JsonIgnore
-    @Column(name = "salt")
-    String salt;
+    private String phone;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Post> posts = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Reaction> reactions = new ArrayList<>();
+    private List<Reaction> reactions = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Comment> comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 }

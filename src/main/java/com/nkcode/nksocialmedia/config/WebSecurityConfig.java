@@ -1,6 +1,7 @@
 package com.nkcode.nksocialmedia.config;
 
-import com.nkcode.nksocialmedia.service.CustomUserDetailsService;
+import com.nkcode.nksocialmedia.security.auth.CustomUserDetailsService;
+import com.nkcode.nksocialmedia.security.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,9 +34,13 @@ public class WebSecurityConfig {
                         authorizeRequests -> authorizeRequests
                                 .requestMatchers("/auth/registration").permitAll()
                                 .requestMatchers("/auth/login").permitAll()
+                                .requestMatchers(
+                                        "/v3/api-docs/**",
+                                        "/swagger-ui/**",
+                                        "/swagger-ui.html"
+                                ).permitAll()
                                 .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }

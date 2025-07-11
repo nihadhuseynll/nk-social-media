@@ -50,6 +50,6 @@ public class Comment {
     @OneToMany(mappedBy = "parentComment")
     List<Comment> replyComments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Reaction> reactions = new ArrayList<>();
 }

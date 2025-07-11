@@ -1,4 +1,4 @@
-package com.nkcode.nksocialmedia.service;
+package com.nkcode.nksocialmedia.security.auth;
 
 import com.nkcode.nksocialmedia.dao.entity.User;
 import com.nkcode.nksocialmedia.dao.repository.UserRepository;
