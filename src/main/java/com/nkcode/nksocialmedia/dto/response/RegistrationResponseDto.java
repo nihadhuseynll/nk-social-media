@@ -1,9 +1,11 @@
 package com.nkcode.nksocialmedia.dto.response;
 
+import com.nkcode.nksocialmedia.dao.entity.Role;
 import com.nkcode.nksocialmedia.dto.enums.Gender;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -28,4 +30,6 @@ public class RegistrationResponseDto {
     Gender gender;
 
     String phone;
+
+    Set<RoleResponseDto> roles;
 }

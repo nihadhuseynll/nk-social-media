@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,6 +15,9 @@ import java.time.LocalDateTime;
 public class ErrorResponse {
 
     LocalDateTime timestamp;
+    int status;
+    String error;
     String message;
-    String details;
+    String path;
+    List<String> errors;
 }

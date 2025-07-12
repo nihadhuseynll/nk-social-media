@@ -1,6 +1,6 @@
 package com.nkcode.nksocialmedia.security.Jwt;
 
-import com.nkcode.nksocialmedia.dto.request.LoginRequestDto;
+import com.nkcode.nksocialmedia.dao.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -23,7 +23,7 @@ public class JwtService {
     @Value("${spring.security.secretKey}")
     private String secretKey;
 
-    public String generateToken(LoginRequestDto user) {
+    public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
 
         return Jwts

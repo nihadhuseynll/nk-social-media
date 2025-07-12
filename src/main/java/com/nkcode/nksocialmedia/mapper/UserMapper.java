@@ -11,18 +11,19 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
-    @Mappings({
+        @Mappings({
             @Mapping(source = "firstName", target = "firstName"),
             @Mapping(source = "lastName", target = "lastName"),
             @Mapping(source = "email", target = "email"),
             @Mapping(source = "userName", target = "userName"),
             @Mapping(source = "password", target = "password"),
             @Mapping(source = "gender", target = "gender"),
-            @Mapping(source = "phone", target = "phone")
+            @Mapping(source = "phone", target = "phone"),
+            @Mapping(source = "roles",target = "roles")
     })
     User toEntity(RegistrationRequestDto registrationRequestDto);
 
-    @Mappings({
+        @Mappings({
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "firstName", target = "firstName"),
             @Mapping(source = "lastName", target = "lastName"),
@@ -30,7 +31,8 @@ public interface UserMapper {
             @Mapping(source = "userName", target = "userName"),
             @Mapping(source = "password", target = "password"),
             @Mapping(source = "gender", target = "gender"),
-            @Mapping(source = "phone", target = "phone")
+            @Mapping(source = "phone", target = "phone"),
+            @Mapping(source = "roles",target = "roles")
     })
     RegistrationResponseDto toRegistrationResponseDto(User user);
 }

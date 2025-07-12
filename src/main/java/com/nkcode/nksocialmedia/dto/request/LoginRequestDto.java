@@ -11,9 +11,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class LoginRequestDto {
 
-    @NotBlank(message = "Username cannot be blank")
+    @NotBlank(message = "Username can't be blank")
     String userName;
 
-    @NotBlank(message = "Password cannot be blank")
+    @NotBlank(message = "Password can't be blank")
     String password;
 }
