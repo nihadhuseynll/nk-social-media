@@ -1,6 +1,5 @@
 package com.nkcode.nksocialmedia.dto.response;
 
-import com.nkcode.nksocialmedia.dao.entity.Role;
 import com.nkcode.nksocialmedia.dto.enums.Gender;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -16,20 +15,12 @@ import java.util.UUID;
 public class RegistrationResponseDto {
 
     UUID id;
-
     String firstName;
-
     String lastName;
-
     String email;
-
     String userName;
-
     String password;
-
     Gender gender;
-
     String phone;
-
-    Set<RoleResponseDto> roles;
+    Set<CreateRoleResponseDto> roles;
 }

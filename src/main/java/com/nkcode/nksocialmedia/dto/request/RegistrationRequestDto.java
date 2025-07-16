@@ -1,6 +1,5 @@
 package com.nkcode.nksocialmedia.dto.request;
 
-import com.nkcode.nksocialmedia.dao.entity.Role;
 import com.nkcode.nksocialmedia.dto.enums.Gender;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -40,5 +39,5 @@ public class RegistrationRequestDto {
     private String phone;
 
     @NotEmpty(message = "roles can't be empty")
-    private Set<RoleRequestDto> roles;
+    private Set<CreateRoleRequestDto> roles;
 }

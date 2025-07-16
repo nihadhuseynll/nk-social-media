@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleRequestDto {
+public class CreateRoleRequestDto {
 
     @NotBlank(message = "Role name can't be blank")
     private String roleName;

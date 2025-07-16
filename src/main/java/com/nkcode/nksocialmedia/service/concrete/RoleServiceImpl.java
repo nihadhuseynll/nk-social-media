@@ -2,7 +2,7 @@ package com.nkcode.nksocialmedia.service.concrete;
 
 import com.nkcode.nksocialmedia.dao.entity.Role;
 import com.nkcode.nksocialmedia.dao.repository.RoleRepository;
-import com.nkcode.nksocialmedia.dto.request.RoleRequestDto;
+import com.nkcode.nksocialmedia.dto.request.CreateRoleRequestDto;
 import com.nkcode.nksocialmedia.exception.custom.RoleNotFoundException;
 import com.nkcode.nksocialmedia.mapper.RoleMapper;
 import com.nkcode.nksocialmedia.service.abstraction.RoleService;
@@ -22,7 +22,7 @@ public class RoleServiceImpl implements RoleService {
     RoleRepository roleRepository;
 
     @Override
-    public Role createRole(RoleRequestDto roleRequestDto) {
+    public Role createRole(CreateRoleRequestDto roleRequestDto) {
         Role role = roleMapper.toEntity(roleRequestDto);
         return roleRepository.save(role);
     }

@@ -1,13 +1,13 @@
 package com.nkcode.nksocialmedia.service.abstraction;
 
 import com.nkcode.nksocialmedia.dao.entity.Role;
-import com.nkcode.nksocialmedia.dto.request.RoleRequestDto;
+import com.nkcode.nksocialmedia.dto.request.CreateRoleRequestDto;
 
 import java.util.List;
 
 public interface RoleService {
 
-    Role createRole(RoleRequestDto roleRequestDto);
+    Role createRole(CreateRoleRequestDto roleRequestDto);
 
     List<Role> getRoles();
 }

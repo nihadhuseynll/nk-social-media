@@ -24,3 +24,6 @@ spring:
 
   security:
     secretKey: "b486a866017febebba8371d6df2de2c2835710ae20e3450595afa63b4bfa94b3cb0d313e028c326d7078dc4bb1d69c770c1aabd8"
+
+  file:
+    upload-dir: C:\\Users\\Acer\\Documents\\nk-social-media-photos

@@ -1,8 +1,8 @@
 package com.nkcode.nksocialmedia.controller;
 
 import com.nkcode.nksocialmedia.dao.entity.Role;
-import com.nkcode.nksocialmedia.dto.request.RoleRequestDto;
-import com.nkcode.nksocialmedia.dto.response.RoleResponseDto;
+import com.nkcode.nksocialmedia.dto.request.CreateRoleRequestDto;
+import com.nkcode.nksocialmedia.dto.response.CreateRoleResponseDto;
 import com.nkcode.nksocialmedia.mapper.RoleMapper;
 import com.nkcode.nksocialmedia.service.abstraction.RoleService;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class RoleController {
     RoleService roleService;
 
     @GetMapping("/getRoles")
-    public ResponseEntity<List<RoleResponseDto>> getRoles() {
+    public ResponseEntity<List<CreateRoleResponseDto>> getRoles() {
 
         List<Role> roles = roleService.getRoles();
         return new ResponseEntity<>(
@@ -35,8 +35,8 @@ public class RoleController {
     }
 
     @PostMapping("/createRole")
-    public ResponseEntity<RoleResponseDto> createRole
-            (@Valid @RequestBody RoleRequestDto roleRequestDto) {
+    public ResponseEntity<CreateRoleResponseDto> createRole
+            (@Valid @RequestBody CreateRoleRequestDto roleRequestDto) {
 
         Role role = roleService.createRole(roleRequestDto);
         return new ResponseEntity<>(

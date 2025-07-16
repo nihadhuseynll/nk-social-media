@@ -7,9 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -25,7 +23,6 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @Lob
     @Column(nullable = false)
     String description;
 
@@ -40,8 +37,9 @@ public class Post {
     @JoinColumn(name = "user_id", nullable = false)
     User user;
 
+    @Builder.Default
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Photo> photos = new ArrayList<>();
+    Set<Photo> photos = new HashSet<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Reaction> reactions = new ArrayList<>();

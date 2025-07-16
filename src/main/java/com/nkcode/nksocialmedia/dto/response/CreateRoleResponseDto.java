@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleResponseDto {
+public class CreateRoleResponseDto {
 
     private String roleName;
 }

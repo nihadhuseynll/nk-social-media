@@ -4,9 +4,9 @@ import com.nkcode.nksocialmedia.dao.entity.Role;
 import com.nkcode.nksocialmedia.dao.entity.User;
 import com.nkcode.nksocialmedia.dao.repository.RoleRepository;
 import com.nkcode.nksocialmedia.dao.repository.UserRepository;
+import com.nkcode.nksocialmedia.dto.request.CreateRoleRequestDto;
 import com.nkcode.nksocialmedia.dto.request.LoginRequestDto;
 import com.nkcode.nksocialmedia.dto.request.RegistrationRequestDto;
-import com.nkcode.nksocialmedia.dto.request.RoleRequestDto;
 import com.nkcode.nksocialmedia.exception.custom.RoleNotFoundException;
 import com.nkcode.nksocialmedia.mapper.UserMapper;
 import com.nkcode.nksocialmedia.security.Jwt.JwtService;
@@ -18,7 +18,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(RegistrationRequestDto registrationRequestDto) {
-        Set<RoleRequestDto> roles = registrationRequestDto.getRoles();
+        Set<CreateRoleRequestDto> roles = registrationRequestDto.getRoles();
 
         Set<Role> foundedRoles = roles.stream()
                 .map(role -> roleRepository.findByRoleName(role.getRoleName())
@@ -63,7 +62,7 @@ public class UserServiceImpl implements UserService {
                         (loginRequestDto.getUserName(), loginRequestDto.getPassword()));
 
         CustomUserDetails customUserDetails = (CustomUserDetails) authenticate.getPrincipal();
-        User user = customUserDetails.getUser(); // Əsl entity-yə çıxış
+        User user = customUserDetails.getUser();
 
         return jwtService.generateToken(user);
     }
