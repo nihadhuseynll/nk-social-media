@@ -2,6 +2,7 @@ package com.nkcode.nksocialmedia.mapper;
 
 import com.nkcode.nksocialmedia.dao.entity.Post;
 import com.nkcode.nksocialmedia.dto.response.CreatePostResponseDto;
+import com.nkcode.nksocialmedia.dto.response.PostResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -19,4 +20,10 @@ public interface PostMapper {
             @Mapping(target = "photos", source = "photos")
     })
     CreatePostResponseDto toCreatePostResponseDto(Post post);
+
+    @Mappings({
+            @Mapping(target = "id",source = "id"),
+            @Mapping(target = "description",source = "description")
+    })
+    PostResponseDto toPostResponseDto(Post post);
 }

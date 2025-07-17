@@ -20,8 +20,7 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
-    @Lob
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     String imageUrl;
 
     @ManyToOne

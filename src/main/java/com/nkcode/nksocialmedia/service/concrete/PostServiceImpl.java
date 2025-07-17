@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 
 @Getter
 @Service
@@ -34,10 +35,10 @@ public class PostServiceImpl implements PostService {
     private final PhotoRepository photoRepository;
 
     @Override
-    public Post createPost(CreatePostRequestDto createPostRequestDto,
+    public Post createPost(UUID userId, CreatePostRequestDto createPostRequestDto,
                            MultipartFile[] multipartFiles) throws IOException {
 
-        User user = userRepository.findById(createPostRequestDto.getUserId())
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("The specified user does not exist or has been deleted."));
 
         Post post = Post.builder()

@@ -1,5 +1,7 @@
 package com.nkcode.nksocialmedia.exception.handler;
 
+import com.nkcode.nksocialmedia.exception.custom.CommentNotFoundException;
+import com.nkcode.nksocialmedia.exception.custom.PostNotFoundException;
 import com.nkcode.nksocialmedia.exception.custom.RoleNotFoundException;
 import com.nkcode.nksocialmedia.exception.custom.UserNotFoundException;
 import com.nkcode.nksocialmedia.exception.payload.ErrorResponse;
@@ -50,6 +52,36 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFoundException
             (UserNotFoundException exception, HttpServletRequest request) {
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .message(exception.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PostNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePostNotFoundException
+            (PostNotFoundException exception, HttpServletRequest request) {
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .message(exception.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleCommentNotFoundException
+            (CommentNotFoundException exception, HttpServletRequest request) {
 
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .timestamp(LocalDateTime.now())

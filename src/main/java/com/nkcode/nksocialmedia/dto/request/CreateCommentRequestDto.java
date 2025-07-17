@@ -1,23 +1,25 @@
 package com.nkcode.nksocialmedia.dto.request;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Set;
 import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(name = "CreatePostRequestDto")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CreatePostRequestDto {
+public class CreateCommentRequestDto {
 
     @NotBlank(message = "Description can't be blank")
     String description;
 
-    Set<PhotoRequestDto> photos;
+    @NotNull(message = "Post Id can't be null")
+    UUID postId;
+
+    UUID parentCommentId;
 }

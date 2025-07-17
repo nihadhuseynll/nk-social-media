@@ -40,8 +40,7 @@ public class WebSecurityConfig {
                                         "/swagger-ui/**",
                                         "/swagger-ui.html"
                                 ).permitAll()
-                                .requestMatchers("/post/nk").hasAuthority("ROLE_ADMIN")
-                                .requestMatchers("/post/linkedIn").hasAuthority("ROLE_USER")
+                                .requestMatchers("/post/createPost").hasAuthority("ROLE_ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

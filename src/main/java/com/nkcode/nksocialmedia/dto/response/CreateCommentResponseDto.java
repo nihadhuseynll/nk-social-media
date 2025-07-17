@@ -4,7 +4,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -12,11 +11,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CreatePostResponseDto {
+public class CreateCommentResponseDto {
 
-    UUID id;
     String description;
     LocalDateTime createdDate;
     UserResponseDto user;
-    Set<PhotoResponseDto> photos;
+    PostResponseDto post;
+    CommentResponseDto parentComment;
 }
