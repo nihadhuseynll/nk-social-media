@@ -1,9 +1,6 @@
 package com.nkcode.nksocialmedia.exception.handler;
 
-import com.nkcode.nksocialmedia.exception.custom.CommentNotFoundException;
-import com.nkcode.nksocialmedia.exception.custom.PostNotFoundException;
-import com.nkcode.nksocialmedia.exception.custom.RoleNotFoundException;
-import com.nkcode.nksocialmedia.exception.custom.UserNotFoundException;
+import com.nkcode.nksocialmedia.exception.custom.*;
 import com.nkcode.nksocialmedia.exception.payload.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -107,6 +104,21 @@ public class GlobalExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidReactionTargetException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidReactionTargetException
+            (InvalidReactionTargetException exception, HttpServletRequest request) {
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message(exception.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(BadCredentialsException.class)

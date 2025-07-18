@@ -35,12 +35,14 @@ public class WebSecurityConfig {
                                 .requestMatchers("/auth/login").permitAll()
                                 .requestMatchers("/role/**").permitAll()
                                 .requestMatchers("/post/**").permitAll()
+                                .requestMatchers("/reaction/**").permitAll()
                                 .requestMatchers(
                                         "/v3/api-docs/**",
                                         "/swagger-ui/**",
                                         "/swagger-ui.html"
                                 ).permitAll()
-                                .requestMatchers("/post/createPost").hasAuthority("ROLE_ADMIN")
+                                .requestMatchers("/post/createPost").authenticated()
+                                .requestMatchers("/reaction/createReaction").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
