@@ -6,8 +6,11 @@ import com.nkcode.nksocialmedia.dao.entity.User;
 import com.nkcode.nksocialmedia.dao.repository.PhotoRepository;
 import com.nkcode.nksocialmedia.dao.repository.PostRepository;
 import com.nkcode.nksocialmedia.dao.repository.UserRepository;
+import com.nkcode.nksocialmedia.dto.projection.PostSummaryProjection;
 import com.nkcode.nksocialmedia.dto.request.CreatePostRequestDto;
+import com.nkcode.nksocialmedia.dto.response.PostResponseDto;
 import com.nkcode.nksocialmedia.exception.custom.UserNotFoundException;
+import com.nkcode.nksocialmedia.mapper.PostMapper;
 import com.nkcode.nksocialmedia.service.abstraction.PostService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -30,6 +34,7 @@ public class PostServiceImpl implements PostService {
     @Value("${spring.file.upload-dir}")
     private String uploadDir;
 
+    private final PostMapper postMapper;
     private final UserRepository userRepository;
     private final PostRepository postRepository;
     private final PhotoRepository photoRepository;
@@ -62,7 +67,15 @@ public class PostServiceImpl implements PostService {
         return postRepository.save(post);
     }
 
+    @Override
+    public List<PostResponseDto> getPosts() throws IOException {
+
+        List<PostSummaryProjection> allPosts = postRepository.getAllPosts();
+        return postMapper.toGetAllPostsResponseDto(allPosts);
+    }
+
     private String saveImage(MultipartFile file) throws IOException {
+
         Path uploadPath = Paths.get(uploadDir);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);

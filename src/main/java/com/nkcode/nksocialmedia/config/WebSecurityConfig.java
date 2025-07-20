@@ -36,6 +36,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/role/**").permitAll()
                                 .requestMatchers("/post/**").permitAll()
                                 .requestMatchers("/reaction/**").permitAll()
+                                .requestMatchers("/comment/**").permitAll()
                                 .requestMatchers(
                                         "/v3/api-docs/**",
                                         "/swagger-ui/**",
@@ -43,6 +44,7 @@ public class WebSecurityConfig {
                                 ).permitAll()
                                 .requestMatchers("/post/createPost").authenticated()
                                 .requestMatchers("/reaction/createReaction").authenticated()
+                                .requestMatchers("/comment/createComment").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

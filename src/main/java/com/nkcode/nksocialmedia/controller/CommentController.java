@@ -2,6 +2,7 @@ package com.nkcode.nksocialmedia.controller;
 
 import com.nkcode.nksocialmedia.dao.entity.Comment;
 import com.nkcode.nksocialmedia.dto.request.CreateCommentRequestDto;
+import com.nkcode.nksocialmedia.dto.response.CommentResponseDto;
 import com.nkcode.nksocialmedia.dto.response.CreateCommentResponseDto;
 import com.nkcode.nksocialmedia.mapper.CommentMapper;
 import com.nkcode.nksocialmedia.security.auth.CustomUserDetails;
@@ -11,11 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -39,5 +38,12 @@ public class CommentController {
                 commentMapper.toCreateCommentResponseDto(comment),
                 HttpStatus.CREATED
         );
+    }
+
+    @GetMapping("/getComments/{postId}")
+    public ResponseEntity<List<CommentResponseDto>> getComments(@PathVariable UUID postId) {
+
+        List<CommentResponseDto> allPostComments = commentService.getComments(postId);
+        return new ResponseEntity<>(allPostComments, HttpStatus.OK);
     }
 }

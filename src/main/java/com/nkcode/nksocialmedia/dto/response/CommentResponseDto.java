@@ -3,6 +3,7 @@ package com.nkcode.nksocialmedia.dto.response;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -12,6 +13,10 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CommentResponseDto {
 
-    UUID id;
+    String userName;
+    LocalDateTime createdDate;
     String description;
+    UUID parentCommentId;
+    int reactionCount;
+    int replyCount;
 }

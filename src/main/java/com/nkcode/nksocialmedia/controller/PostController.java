@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nkcode.nksocialmedia.dao.entity.Post;
 import com.nkcode.nksocialmedia.dto.request.CreatePostRequestDto;
 import com.nkcode.nksocialmedia.dto.response.CreatePostResponseDto;
+import com.nkcode.nksocialmedia.dto.response.PostResponseDto;
 import com.nkcode.nksocialmedia.mapper.PostMapper;
 import com.nkcode.nksocialmedia.security.auth.CustomUserDetails;
 import com.nkcode.nksocialmedia.service.abstraction.PostService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,10 +39,17 @@ public class PostController {
 
         UUID userId = customUserDetails.getUser().getId();
         CreatePostRequestDto dto = objectMapper.readValue(createPostRequestDto, CreatePostRequestDto.class);
-        Post post = postService.createPost(userId,dto, multipartFile);
+        Post post = postService.createPost(userId, dto, multipartFile);
         return new ResponseEntity<>(
                 postMapper.toCreatePostResponseDto(post),
                 HttpStatus.CREATED
         );
+    }
+
+    @GetMapping(value = "/getPosts")
+    public ResponseEntity<List<PostResponseDto>> getPosts() throws IOException {
+
+        List<PostResponseDto> allPosts = postService.getPosts();
+        return new ResponseEntity<>(allPosts, HttpStatus.OK);
     }
 }

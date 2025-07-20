@@ -24,16 +24,6 @@ public class RoleController {
     RoleMapper roleMapper;
     RoleService roleService;
 
-    @GetMapping("/getRoles")
-    public ResponseEntity<List<CreateRoleResponseDto>> getRoles() {
-
-        List<Role> roles = roleService.getRoles();
-        return new ResponseEntity<>(
-                roles.stream().map(roleMapper::toRoleResponseDto).toList(),
-                HttpStatus.OK
-        );
-    }
-
     @PostMapping("/createRole")
     public ResponseEntity<CreateRoleResponseDto> createRole
             (@Valid @RequestBody CreateRoleRequestDto roleRequestDto) {
@@ -42,6 +32,16 @@ public class RoleController {
         return new ResponseEntity<>(
                 roleMapper.toRoleResponseDto(role),
                 HttpStatus.CREATED
+        );
+    }
+
+    @GetMapping("/getRoles")
+    public ResponseEntity<List<CreateRoleResponseDto>> getRoles() {
+
+        List<Role> roles = roleService.getRoles();
+        return new ResponseEntity<>(
+                roles.stream().map(roleMapper::toRoleResponseDto).toList(),
+                HttpStatus.OK
         );
     }
 }
