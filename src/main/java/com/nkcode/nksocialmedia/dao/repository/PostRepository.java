@@ -24,5 +24,5 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
             LEFT JOIN p.reactions r
             GROUP BY p.description, p.createdDate, u.userName
             """)
-    List<PostSummaryProjection> getAllPosts();
+    List<PostSummaryProjection> getPosts();
 }

@@ -49,7 +49,7 @@ public class PostController {
     @GetMapping(value = "/getPosts")
     public ResponseEntity<List<PostResponseDto>> getPosts() throws IOException {
 
-        List<PostResponseDto> allPosts = postService.getPosts();
-        return new ResponseEntity<>(allPosts, HttpStatus.OK);
+        List<PostResponseDto> posts = postService.getPosts();
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 }

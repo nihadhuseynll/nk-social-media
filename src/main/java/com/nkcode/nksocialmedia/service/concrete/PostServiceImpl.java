@@ -6,7 +6,6 @@ import com.nkcode.nksocialmedia.dao.entity.User;
 import com.nkcode.nksocialmedia.dao.repository.PhotoRepository;
 import com.nkcode.nksocialmedia.dao.repository.PostRepository;
 import com.nkcode.nksocialmedia.dao.repository.UserRepository;
-import com.nkcode.nksocialmedia.dto.projection.PostSummaryProjection;
 import com.nkcode.nksocialmedia.dto.request.CreatePostRequestDto;
 import com.nkcode.nksocialmedia.dto.response.PostResponseDto;
 import com.nkcode.nksocialmedia.exception.custom.UserNotFoundException;
@@ -23,7 +22,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Getter
@@ -70,8 +71,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostResponseDto> getPosts() throws IOException {
 
-        List<PostSummaryProjection> allPosts = postRepository.getAllPosts();
-        return postMapper.toGetAllPostsResponseDto(allPosts);
+        return Optional.ofNullable(postRepository.getPosts())
+                .filter(posts -> !posts.isEmpty())
+                .map(postMapper::toPostResponseDtoList)
+                .orElse(Collections.emptyList());
     }
 
     private String saveImage(MultipartFile file) throws IOException {

@@ -58,7 +58,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentResponseDto> getComments(UUID postId) {
 
-        List<CommentSummaryProjection> allPostComments = commentRepository.getAllPostComments(postId);
-        return commentMapper.toGetAllPostCommentsDtoList(allPostComments);
+        postRepository.findById(postId).
+                orElseThrow(() -> new PostNotFoundException("The specified post does not exist or has been deleted."));
+        List<CommentSummaryProjection> comments = commentRepository.getComments(postId);
+        return commentMapper.toCommentResponseDtoList(comments);
     }
 }

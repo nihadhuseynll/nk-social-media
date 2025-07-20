@@ -26,6 +26,6 @@ public interface CommentMapper {
 
     CommentResponseDto toCommentResponseDto(Comment comment);
 
-    List<CommentResponseDto> toGetAllPostCommentsDtoList
+    List<CommentResponseDto> toCommentResponseDtoList
             (List<CommentSummaryProjection> commentSummaryProjections);
 }

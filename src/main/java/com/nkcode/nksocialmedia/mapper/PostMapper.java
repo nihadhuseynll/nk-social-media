@@ -29,6 +29,6 @@ public interface PostMapper {
     })
     PostResponseDto toPostResponseDto(Post post);
 
-    List<PostResponseDto> toGetAllPostsResponseDto
+    List<PostResponseDto> toPostResponseDtoList
             (List<PostSummaryProjection> postSummaryProjections);
 }

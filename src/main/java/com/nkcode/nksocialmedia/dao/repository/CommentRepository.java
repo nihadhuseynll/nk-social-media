@@ -26,5 +26,5 @@ public interface CommentRepository extends JpaRepository<Comment, UUID> {
              WHERE c.post.id = :postId
              GROUP BY c.description, c.createdDate, c.parentComment.id, u.userName
             """)
-    List<CommentSummaryProjection> getAllPostComments(UUID postId);
+    List<CommentSummaryProjection> getComments(UUID postId);
 }

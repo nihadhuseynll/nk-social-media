@@ -43,7 +43,7 @@ public class CommentController {
     @GetMapping("/getComments/{postId}")
     public ResponseEntity<List<CommentResponseDto>> getComments(@PathVariable UUID postId) {
 
-        List<CommentResponseDto> allPostComments = commentService.getComments(postId);
-        return new ResponseEntity<>(allPostComments, HttpStatus.OK);
+        List<CommentResponseDto> comments = commentService.getComments(postId);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 }
